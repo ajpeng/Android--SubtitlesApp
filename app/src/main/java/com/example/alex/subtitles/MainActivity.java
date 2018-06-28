@@ -62,13 +62,15 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        DownloadFragment df = new DownloadFragment();
-        FragmentManager fm = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fm.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_place, df);
 
 
-        fragmentTransaction.commit();
+        //DownloadFragment df = new DownloadFragment();
+//        DownloadFragment df = new DownloadFragment();
+//        FragmentManager fm = getFragmentManager();
+//        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+//        fragmentTransaction.replace(R.id.fragment_place, fm);
+//        fragmentTransaction.commit();
+
     }
 
 
