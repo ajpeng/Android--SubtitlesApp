@@ -45,6 +45,8 @@ import java.util.concurrent.ExecutionException;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static final String TAG = "MainActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,12 +92,14 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onResponse(String response) {
                 tmp[0] =response.substring(0,500);
+                Log.d(TAG , tmp[0]);
             }
         }, new Response.ErrorListener(){
 
             @Override
             public void onErrorResponse(VolleyError error) {
                 tmp[0] = "onErrorResponse";
+                Log.d(TAG , tmp[0]);
             }
         });
 
