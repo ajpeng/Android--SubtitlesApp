@@ -21,8 +21,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.xmlpull.v1.XmlPullParser;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -64,6 +72,7 @@ public class MainActivity extends AppCompatActivity
 
 
 
+
         //DownloadFragment df = new DownloadFragment();
 //        DownloadFragment df = new DownloadFragment();
 //        FragmentManager fm = getFragmentManager();
@@ -73,6 +82,25 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    public void launchXMLRPC(View view){
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = "https://api.opensubtitles.org:443/xml-rpc";
+        final String[] tmp = {""};
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                tmp[0] =response.substring(0,500);
+            }
+        }, new Response.ErrorListener(){
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                tmp[0] = "onErrorResponse";
+            }
+        });
+
+        queue.add(stringRequest);
+    }
 
 
     @Override

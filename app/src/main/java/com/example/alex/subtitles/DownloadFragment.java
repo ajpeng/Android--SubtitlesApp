@@ -75,7 +75,7 @@ public class DownloadFragment extends android.support.v4.app.Fragment {
             try{
                 //Document doc = Jsoup.connect("http://google.com").get();
                 Log.d(TAG , "doInBackground");
-                Document doc = Jsoup.connect("https://www.opensubtitles.org/en/search2/sublanguageid-all/moviename-" + strings[0]).userAgent("TemporaryUserAgent").get();
+                Document doc = Jsoup.connect("https://www.opensubtitles.org/en/search2/sublanguageid-all/moviename-" + strings[0]).userAgent("UntitledSubtitles").get();
                 getResultList(doc);
                 return doc.outerHtml().toString();
                 //return strings[0];
