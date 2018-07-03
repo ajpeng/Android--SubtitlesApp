@@ -93,7 +93,7 @@ public class DownloadFragment extends android.support.v4.app.Fragment {
                     Elements tds = row.select("td");
                     if(tds.size() >= 4){
                         resultList.add(tds.get(0).text() + " : " + tds.get(1).text());
-                        Log.d(TAG,tds.get(0).text() + " : " + tds.get(1).text());
+                        //Log.d(TAG,tds.get(0).text() + " : " + tds.get(1).text());
                     }
                 }
             }

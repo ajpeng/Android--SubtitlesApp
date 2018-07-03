@@ -17,17 +17,23 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.xmlpull.v1.XmlPullParser;
@@ -40,6 +46,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.channels.AsynchronousByteChannel;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity
@@ -84,27 +92,39 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    public void launchXMLRPC(View view){
+    public void launchXMLRPC(View view) throws MalformedURLException {
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "https://api.opensubtitles.org:443/xml-rpc";
+
+        String url = "https://rest.opensubtitles.org/search/episode-20/imdbid-4145054/moviebytesize-750005572/moviehash-319b23c54e9cf314/season-2/sublanguageid-eng";
         final String[] tmp = {""};
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                tmp[0] =response.substring(0,500);
-                Log.d(TAG , tmp[0]);
-            }
-        }, new Response.ErrorListener(){
+        Log.d(TAG ,"LaunchedXMLRPC");
+        JsonArrayRequest jsonRequest = new JsonArrayRequest (Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
 
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                tmp[0] = "onErrorResponse";
-                Log.d(TAG , tmp[0]);
-            }
-        });
+                    @Override
+                    public void onResponse(JSONArray   response) {
+                        Log.d(TAG ,"Response: " + response.toString());
+                    }
+                }, new Response.ErrorListener() {
 
-        queue.add(stringRequest);
-    }
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO: Handle error
+                        Log.d(TAG ,error.toString());
+                    }
+                }) { @Override
+            public Map<String, String> getHeaders() throws AuthFailureError{
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("User-agent", BuildConfig.ApiKey);
+                    params.put("Accept-Language", "en");
+                    return params;
+        }
+
+        };
+        queue.add(jsonRequest);
+        Log.d(TAG ,"added json to queue");
+//        URL serverUrl = new URL("https", "api.opensubtitles.org", 443, "/xml-rpc");
+
+}
 
 
     @Override
