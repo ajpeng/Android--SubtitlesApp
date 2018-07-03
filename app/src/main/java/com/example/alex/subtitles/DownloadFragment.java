@@ -1,6 +1,5 @@
 package com.example.alex.subtitles;
 
-import android.app.Fragment;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,10 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import org.jsoup.Jsoup;
@@ -20,7 +16,6 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -40,15 +35,11 @@ public class DownloadFragment extends android.support.v4.app.Fragment {
         View view = inflater.inflate(R.layout.fragment_one , container, false);
         resultList = (ListView) view.findViewById(R.id.resultListView);
         //resultList = (ListView) getView.findViewById(R.id.resultListView);
-//        Button btn = (Button) view.findViewById(R.id.testBtn);
-        String[] animals= {"cat" ,"dog", "bee", "antelope"};
-        ArrayList list = new ArrayList<String>();
-        for(String animal : animals){
-            list.add(animal);
-        }
+
         DownloadTask dt = new DownloadTask();
+        List<String> list = null;
         try {
-            list.add(dt.execute("the+expanse").get());
+            list = new ArrayList<>(dt.execute().get());
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -68,7 +59,46 @@ public class DownloadFragment extends android.support.v4.app.Fragment {
         return view;
     }
 
-    public class DownloadTask extends AsyncTask<String, Void, String>{
+    public class DownloadTask extends AsyncTask<Void, Void, List<String>>{
+
+        @Override
+        protected List<String> doInBackground(Void... voids) {
+            try{
+                Log.d(TAG , "doInBackground");
+                Document doc = Jsoup.connect("https://www.imdb.com/chart/tvmeter").get();
+
+                //return doc.outerHtml().toString();
+                return getResultList(doc);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        public List<String> getResultList(Document doc){
+            List resultList = new LinkedList<>();
+//            table id="search_results" is the table which contains the content
+//            for( Element table: doc.select(".chart")){
+                for( Element innerTable: doc.getElementsByClass("chart full-width")){
+                    for (Element row: innerTable.select("tr")){
+                        Elements tds = row.select("td");
+                        if(tds.size() >= 5){
+                            final String title = row.select(".titleColumn a").text();
+                            final String year = row.select(".titleColumn span.secondaryInfo").first().text();
+                            final String rating = row.select(".imdbRating").text();
+                            resultList.add(title + " " + year + " -> " + rating+ " \u2B50") ;
+                        }
+                    }
+
+                //}
+            }
+            return resultList;
+        }
+
+
+    }
+
+    public class DownloadTableContent extends AsyncTask<String, Void, String>{
 
         @Override
         protected String doInBackground(String... strings) {
@@ -101,5 +131,6 @@ public class DownloadFragment extends android.support.v4.app.Fragment {
             return resultList;
         }
     }
+
 
 }

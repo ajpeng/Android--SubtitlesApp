@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity
         queue.add(jsonRequest);
         Log.d(TAG ,"added json to queue");
 //        URL serverUrl = new URL("https", "api.opensubtitles.org", 443, "/xml-rpc");
-
+// https://forum.opensubtitles.org/viewtopic.php?f=8&t=16453#p39771 reference for REST API
 }
 
 
