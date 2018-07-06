@@ -31,6 +31,8 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -46,15 +48,19 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.channels.AsynchronousByteChannel;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
+
+import javax.xml.transform.Result;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final String TAG = "MainActivity";
-
+    TextView query;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,7 +85,7 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
+        query = (TextView) findViewById(R.id.queryTextField);
 
 
 
@@ -95,14 +101,17 @@ public class MainActivity extends AppCompatActivity
     public void launchXMLRPC(View view) throws MalformedURLException {
         RequestQueue queue = Volley.newRequestQueue(this);
 
-        String url = "https://rest.opensubtitles.org/search/episode-20/imdbid-4145054/moviebytesize-750005572/moviehash-319b23c54e9cf314/season-2/sublanguageid-eng";
-        final String[] tmp = {""};
+        String url = "https://rest.opensubtitles.org/search/query-" + query ;
+        final ArrayList<ResultItem> resultItemArrayList = null;
         Log.d(TAG ,"LaunchedXMLRPC");
         JsonArrayRequest jsonRequest = new JsonArrayRequest (Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
 
                     @Override
-                    public void onResponse(JSONArray   response) {
+                    public void onResponse(JSONArray response) {
+                        Gson gson = new Gson();
+                        //resultItemArrayList = gson.fromJson(response , new TypeToken<List<ResultItem>>(){}.getType());
                         Log.d(TAG ,"Response: " + response.toString());
+
                     }
                 }, new Response.ErrorListener() {
 
