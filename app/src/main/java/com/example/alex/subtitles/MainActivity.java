@@ -1,60 +1,31 @@
 package com.example.alex.subtitles;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.util.Log;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-
-import android.widget.Button;
-import android.widget.EditText;
+import android.view.View;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.xmlpull.v1.XmlPullParser;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
+import java.lang.reflect.Type;
 import java.net.MalformedURLException;
-import java.net.URL;
-import java.nio.channels.AsynchronousByteChannel;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
-
-import javax.xml.transform.Result;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -98,42 +69,70 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    public Map<String, String> getHeaders() throws AuthFailureError {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("User-agent", BuildConfig.ApiKey);
+        params.put("Accept-Language", "en");
+        return params;
+    }
+
     public void launchXMLRPC(View view) throws MalformedURLException {
         RequestQueue queue = Volley.newRequestQueue(this);
 
-        String url = "https://rest.opensubtitles.org/search/query-" + query ;
-        final ArrayList<ResultItem> resultItemArrayList = null;
-        Log.d(TAG ,"LaunchedXMLRPC");
-        JsonArrayRequest jsonRequest = new JsonArrayRequest (Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+        String url = "https://rest.opensubtitles.org/search/query-" + query.getText();
+        //final ArrayList<ResultItem> resultItemArrayList = null;
+        final ResultItem[] resultItems ;
+        Log.d(TAG, "LaunchedXMLRPC");
 
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        Gson gson = new Gson();
-                        //resultItemArrayList = gson.fromJson(response , new TypeToken<List<ResultItem>>(){}.getType());
-                        Log.d(TAG ,"Response: " + response.toString());
-
-                    }
-                }, new Response.ErrorListener() {
-
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // TODO: Handle error
-                        Log.d(TAG ,error.toString());
-                    }
-                }) { @Override
-            public Map<String, String> getHeaders() throws AuthFailureError{
-                    Map<String, String> params = new HashMap<String, String>();
-                    params.put("User-agent", BuildConfig.ApiKey);
-                    params.put("Accept-Language", "en");
-                    return params;
+        //RequestQueue queue  =  myVolley.newRequestQueue(this);
+        //GsonRequest<ResultItem> myRequest = new GsonRequest<ResultItem>(Request.Method.GET, url , ResultItem.class , createMyReqSuccessListener(), createMyReqErrorListener())
+        GsonRequest gsonRequest = null;
+        try {
+            gsonRequest = new GsonRequest(url, ResultItem.class, getHeaders(), new Response.Listener() {
+                @Override
+                public void onResponse(Object response) {
+                    ArrayList<String> result = (ArrayList<String>) response;
+                    Log.d(TAG , String.valueOf(result));
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    error.printStackTrace();
+                }
+            });
+        } catch (AuthFailureError authFailureError) {
+            authFailureError.printStackTrace();
         }
 
-        };
-        queue.add(jsonRequest);
-        Log.d(TAG ,"added json to queue");
+        queue.add(gsonRequest);
+
+    }
+
+        //queue.add(jsonRequest);
+
 //        URL serverUrl = new URL("https", "api.opensubtitles.org", 443, "/xml-rpc");
 // https://forum.opensubtitles.org/viewtopic.php?f=8&t=16453#p39771 reference for REST API
-}
+
+
+    private Response.Listener<ResultItem> createMyReqSuccessListener() {
+        return new Response.Listener<ResultItem>() {
+            @Override
+            public void onResponse(ResultItem response) {
+                // Do whatever you want to do with response;
+                // Like response.tags.getListing_count(); etc. etc.
+            }
+        };
+    }
+
+    private Response.ErrorListener createMyReqErrorListener() {
+        return new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // Do whatever you want to do with error.getMessage();
+            }
+        };
+    }
+
 
 
     @Override

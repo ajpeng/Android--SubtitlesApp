@@ -18,4 +18,60 @@ public class ResultItem {
             SubDownloadLink = sub;
             SubDownloadsCnt = count;
         }
+
+    public String getSubFileName() {
+        return SubFileName;
+    }
+
+    public void setSubFileName(String subFileName) {
+        SubFileName = subFileName;
+    }
+
+    public String getIDMovieImdb() {
+        return IDMovieImdb;
+    }
+
+    public void setIDMovieImdb(String IDMovieImdb) {
+        this.IDMovieImdb = IDMovieImdb;
+    }
+
+    public String getSubHash() {
+        return SubHash;
+    }
+
+    public void setSubHash(String subHash) {
+        SubHash = subHash;
+    }
+
+    public String getSubLanguageID() {
+        return SubLanguageID;
+    }
+
+    public void setSubLanguageID(String subLanguageID) {
+        SubLanguageID = subLanguageID;
+    }
+
+    public String getZipDownloadLink() {
+        return ZipDownloadLink;
+    }
+
+    public void setZipDownloadLink(String zipDownloadLink) {
+        ZipDownloadLink = zipDownloadLink;
+    }
+
+    public String getSubDownloadLink() {
+        return SubDownloadLink;
+    }
+
+    public void setSubDownloadLink(String subDownloadLink) {
+        SubDownloadLink = subDownloadLink;
+    }
+
+    public String getSubDownloadsCnt() {
+        return SubDownloadsCnt;
+    }
+
+    public void setSubDownloadsCnt(String subDownloadsCnt) {
+        SubDownloadsCnt = subDownloadsCnt;
+    }
 }
