@@ -1,9 +1,11 @@
 package com.example.alex.subtitles;
 
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -13,6 +15,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
@@ -24,12 +27,16 @@ import com.android.volley.toolbox.Volley;
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
+    ResultItemList resultItemList = null;
+    List<ResultItem> resultItemList2;
+    ListView resultListView2;
     private static final String TAG = "MainActivity";
     TextView query;
     @Override
@@ -57,16 +64,6 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         query = (TextView) findViewById(R.id.queryTextField);
-
-
-
-        //DownloadFragment df = new DownloadFragment();
-//        DownloadFragment df = new DownloadFragment();
-//        FragmentManager fm = getFragmentManager();
-//        FragmentTransaction fragmentTransaction = fm.beginTransaction();
-//        fragmentTransaction.replace(R.id.fragment_place, fm);
-//        fragmentTransaction.commit();
-
     }
 
     public Map<String, String> getHeaders() throws AuthFailureError {
@@ -76,9 +73,9 @@ public class MainActivity extends AppCompatActivity
         return params;
     }
 
+
     public void launchXMLRPC(View view) throws MalformedURLException {
         RequestQueue queue = Volley.newRequestQueue(this);
-
         String url = "https://rest.opensubtitles.org/search/query-" + query.getText();
         //final ArrayList<ResultItem> resultItemArrayList = null;
         final ResultItem[] resultItems ;
@@ -91,8 +88,10 @@ public class MainActivity extends AppCompatActivity
             gsonRequest = new GsonRequest(url, ResultItem.class, getHeaders(), new Response.Listener() {
                 @Override
                 public void onResponse(Object response) {
-                    ArrayList<String> result = (ArrayList<String>) response;
-                    Log.d(TAG , String.valueOf(result));
+
+                    List<ResultItem> result = (ArrayList<ResultItem>) response;
+                    resultItemList = new ResultItemList((List<ResultItem>) response);
+                    Log.d("GsonRequest", result.toString());
                 }
             }, new Response.ErrorListener() {
                 @Override
@@ -106,6 +105,21 @@ public class MainActivity extends AppCompatActivity
 
         queue.add(gsonRequest);
 
+        resultItemList2 = new ArrayList<>();
+        resultItemList2.add(new ResultItem("file1" , "imdb2" , "hashvalue" , "en", "zipfiledownloadLink" ,  "unzipfileLink", "count"));
+        resultItemList2.add(new ResultItem("file2" , "imdb2" , "hashvalue" , "en", "zipfiledownloadLink" ,  "unzipfileLink", "count"));
+        resultItemList2.add(new ResultItem("file3" , "imdb2" , "hashvalue" , "en", "zipfiledownloadLink" ,  "unzipfileLink", "count"));
+        resultItemList2.add(new ResultItem("file4" , "imdb2" , "hashvalue" , "en", "zipfiledownloadLink" ,  "unzipfileLink", "count"));
+        resultItemList2.add(new ResultItem("file5" , "imdb2" , "hashvalue" , "en", "zipfiledownloadLink" ,  "unzipfileLink", "count"));
+
+        resultListView2 = (ListView) findViewById(R.id.resultItemList2);
+        ResultListAdapter adapter = new ResultListAdapter(this , R.layout.result_single , resultItemList2);
+        resultListView2.setAdapter(adapter);
+//        DownloadFragment df = new DownloadFragment();
+//        FragmentManager fm = getFragmentManager();
+//        android.app.FragmentTransaction fragmentTransaction = fm.beginTransaction();
+//        fragmentTransaction.replace(R.id.fragment_place, df);
+//        fragmentTransaction.commit();
     }
 
         //queue.add(jsonRequest);
