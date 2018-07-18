@@ -2,6 +2,7 @@ package com.example.alex.subtitles;
 
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -59,7 +60,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-      //  this.context = context;
+        configureNextButton();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -80,6 +81,16 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         query = (TextView) findViewById(R.id.queryTextField);
         Button button2 = findViewById(R.id.button2);
+    }
+
+    private void configureNextButton(){
+        Button nextButton = (Button) findViewById(R.id.button3);
+        nextButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this , ResultsActivity.class));
+            }
+        });
     }
 
     //@Override

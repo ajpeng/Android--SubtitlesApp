@@ -3,17 +3,27 @@ package com.example.alex.subtitles;
 import java.io.Serializable;
 
 public class ResultItem implements Serializable{
-    String MovieHash;
+    String SubFileName;
     String IDMovieImdb;
+    String SubHash;
 
-    public ResultItem(String MovieHash, String IDMovieImdb){
-        this.MovieHash = MovieHash;
-        this.IDMovieImdb = IDMovieImdb;
+    public String getSubHash() {
+        return SubHash;
     }
 
+    public ResultItem(String SubFileName, String IDMovieImdb, String SubHash){
+        this.SubFileName = SubFileName;
+
+        this.IDMovieImdb = IDMovieImdb;
+        this.SubHash = SubHash;
+    }
+
+    public String getIDMovieImdb() {
+        return IDMovieImdb;
+    }
 
     public String getSubFileName(){
-        return MovieHash;
+        return SubFileName;
     }
 
     public String getSubDownloadsCnt(){
@@ -23,7 +33,7 @@ public class ResultItem implements Serializable{
     @Override
     public String toString() {
         return "ResultItem{" +
-                "MovieHash='" + MovieHash + '\'' +
+                "SubFileName='" + SubFileName + '\'' +
                 ", IDMovieImdb='" + IDMovieImdb + '\'' +
                 '}';
     }

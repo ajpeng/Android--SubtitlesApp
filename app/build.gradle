@@ -54,4 +54,3 @@ dependencies {
     implementation files('libs/jsoup-1.11.3.jar')
     //implementation project(':volley')
 }
-

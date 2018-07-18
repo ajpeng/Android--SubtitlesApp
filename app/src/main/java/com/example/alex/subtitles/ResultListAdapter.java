@@ -42,14 +42,13 @@ public class ResultListAdapter extends ArrayAdapter<ResultItem> {
         downloadCnt.setText(resultItem.getSubDownloadsCnt());
         //imageView.setImageDrawable(drawable, null);
 
-        view.findViewById(R.id.downloadBtn).setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(mCtx, "Downloading subtitle file", Toast.LENGTH_SHORT);
-
-            }
-        });
+//        view.findViewById(R.id.downloadBtn).setOnClickListener(new View.OnClickListener(){
+//
+//            @Override
+//            public void onClick(View view) {
+//                Toast.makeText(mCtx, "Downloading subtitle file", Toast.LENGTH_SHORT);
+//            }
+//        });
         return view;
     }
 }
