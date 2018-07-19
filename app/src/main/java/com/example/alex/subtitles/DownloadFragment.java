@@ -1,5 +1,6 @@
 package com.example.alex.subtitles;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -52,11 +53,18 @@ public class DownloadFragment extends android.support.v4.app.Fragment {
         resultList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getActivity(), resultList.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(getActivity(), resultList.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
+                startIntent(resultList.getItemAtPosition(position).toString());
             }
         });
 
         return view;
+    }
+
+    public void startIntent(String query){
+        Intent intent = new Intent(getActivity() , ResultsActivity.class);
+        intent.putExtra("QUERY" , query);
+        startActivity(intent);
     }
 
     public class DownloadTask extends AsyncTask<Void, Void, List<String>>{
@@ -86,7 +94,8 @@ public class DownloadFragment extends android.support.v4.app.Fragment {
                             final String title = row.select(".titleColumn a").text();
                             final String year = row.select(".titleColumn span.secondaryInfo").first().text();
                             final String rating = row.select(".imdbRating").text();
-                            resultList.add(title + " " + year + " -> " + rating+ " \u2B50") ;
+                            resultList.add(title + " " + year ) ;
+                            //+ " -> " + rating+ " \u2B50
                         }
                     }
 

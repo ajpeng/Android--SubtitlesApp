@@ -18,6 +18,7 @@ public class ResultItemList {
         this.resultItemList = customResponseList;
     }
 
+
     public String toString(){
         return Arrays.toString(new List[]{resultItemList});
     }

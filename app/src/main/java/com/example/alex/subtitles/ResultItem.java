@@ -6,14 +6,19 @@ public class ResultItem implements Serializable{
     String SubFileName;
     String IDMovieImdb;
     String SubHash;
+    String MovieName;
+
+    public String getMovieName() {
+        return MovieName;
+    }
 
     public String getSubHash() {
         return SubHash;
     }
 
-    public ResultItem(String SubFileName, String IDMovieImdb, String SubHash){
+    public ResultItem(String SubFileName, String IDMovieImdb, String SubHash, String MovieName){
         this.SubFileName = SubFileName;
-
+        this.MovieName = MovieName;
         this.IDMovieImdb = IDMovieImdb;
         this.SubHash = SubHash;
     }
