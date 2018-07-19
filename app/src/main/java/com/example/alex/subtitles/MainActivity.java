@@ -9,9 +9,11 @@ import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -48,7 +50,7 @@ public class MainActivity extends AppCompatActivity
 
     public ArrayList arrayList;
     ResultItem[] resultItemArray;
-    ResultItemList resultItemList = null;
+    //ResultItemList resultItemList = null;
     ArrayList<ResultItem> resultItemList2;
     ListView resultListView2;
 
@@ -93,102 +95,6 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
-    //@Override
-    public Map<String, String> getHeaders() throws AuthFailureError {
-        HashMap<String, String> headers = new HashMap<String, String>();
-        headers.put("User-agent", "UntitledSubtitles");
-        headers.put("Content-Type", "application/json; charset=utf-8");
-        headers.put("Accept-Language", "en");
-        return headers;
-    }
-
-//    public ArrayList<ResultItem> getResultItemArray(){
-//        ArrayList<ResultItem> resultArrayList = new ArrayList<>();
-//        Gson gson = new Gson();
-//        for(String str: arrayList){
-//            ResultItem item = gson.fromJson(str, ResultItem.class);
-//            resultArrayList.add(item);
-//        }
-//        return resultArrayList;
-//    }
-
-    public void launchXMLRPC(View view) throws MalformedURLException, AuthFailureError {
-        RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "https://rest.opensubtitles.org/search/query-" + query.getText();
-        Log.d(TAG, "LaunchedXMLRPC");
-        GsonRequest<ResultItem[]> gsonRequest = null;
-        arrayList = new ArrayList<>();
-
-        gsonRequest = new GsonRequest<ResultItem[]>(Request.Method.GET, url, ResultItem[].class, getHeaders(),
-                new Response.Listener<ResultItem[]>() {
-                    @Override
-                    public void onResponse(ResultItem[] response) {
-                        Gson gson = new Gson();
-                        for (ResultItem item : response) {
-                            String jsonString = gson.toJson(item);
-                            arrayList.add(jsonString);
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        error.printStackTrace();
-                    }
-                }
-                ) {@Override
-                    public Map<String, String> getHeaders() throws AuthFailureError {
-                        Map<String, String> params = new HashMap<String, String>();
-                        params.put("User-agent", BuildConfig.ApiKey);
-                        params.put("Accept-Language", "en");
-                        return params;
-                    }};
-        queue.add(gsonRequest);
-    }
-
-//        URL serverUrl = new URL("https", "api.opensubtitles.org", 443, "/xml-rpc");
-// https://forum.opensubtitles.org/viewtopic.php?f=8&t=16453#p39771 reference for REST API
-
-
-
-    public ArrayList<ResultItem> createResultItemArrayList(List<String> list){
-        ArrayList<ResultItem> resultList = new ArrayList();
-        Gson gson = new Gson();
-        for(String str: list){
-            ResultItem item = gson.fromJson(str, ResultItem.class);
-            resultList.add(item);
-        }
-        return resultList;
-    }
-
-
-    public void setResultFragment(View view){
-        resultListView2 = (ListView) findViewById(R.id.resultItemList2);
-        ArrayList tmp = createResultItemArrayList(arrayList);
-        ResultListAdapter adapter = new ResultListAdapter(this , R.layout.result_single , tmp);
-        resultListView2.setAdapter(adapter);
-    }
-
-    private Response.Listener<ResultItem> createMyReqSuccessListener() {
-        return new Response.Listener<ResultItem>() {
-            @Override
-            public void onResponse(ResultItem response) {
-                // Do whatever you want to do with response;
-                // Like response.tags.getListing_count(); etc. etc.
-            }
-        };
-    }
-
-    private Response.ErrorListener createMyReqErrorListener() {
-        return new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                // Do whatever you want to do with error.getMessage();
-            }
-        };
-    }
-
-
 
     @Override
     public void onBackPressed() {
@@ -204,6 +110,8 @@ public class MainActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+        MenuItem searchItem = menu.findItem(R.id.menuSearch);
+        SearchView searchView = (SearchView) searchItem.getActionView();
         return true;
     }
 
