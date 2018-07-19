@@ -25,7 +25,6 @@ public class MainActivity extends AppCompatActivity
 
     public ArrayList arrayList;
     ResultItem[] resultItemArray;
-    //ResultItemList resultItemList = null;
     ArrayList<ResultItem> resultItemList2;
     ListView resultListView2;
 
@@ -68,7 +67,6 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
-
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -85,10 +83,22 @@ public class MainActivity extends AppCompatActivity
         getMenuInflater().inflate(R.menu.main, menu);
         MenuItem searchItem = menu.findItem(R.id.menuSearch);
         SearchView searchView = (SearchView) searchItem.getActionView();
-        if (searchView != null) {
-            searchView.setOnQueryTextListener(MainActivity.this);
-        }
-        return true;
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                startActivity(new Intent(MainActivity.this , ResultsActivity.class));
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+//        if (searchView != null) {
+//            searchView.setOnQueryTextListener(MainActivity.this);
+//        }
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
