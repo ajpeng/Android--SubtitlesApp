@@ -8,6 +8,7 @@
         app:actionViewClass="android.Widget.SearchView"
         app:showAsAction="always">
 
+
     </item>
     <item
         android:id="@+id/action_settings"

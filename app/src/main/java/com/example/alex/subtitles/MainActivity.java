@@ -46,7 +46,7 @@ import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, SearchView.OnQueryTextListener {
 
     public ArrayList arrayList;
     ResultItem[] resultItemArray;
@@ -81,8 +81,6 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        query = (TextView) findViewById(R.id.queryTextField);
-        Button button2 = findViewById(R.id.button2);
     }
 
     private void configureNextButton(){
@@ -112,6 +110,9 @@ public class MainActivity extends AppCompatActivity
         getMenuInflater().inflate(R.menu.main, menu);
         MenuItem searchItem = menu.findItem(R.id.menuSearch);
         SearchView searchView = (SearchView) searchItem.getActionView();
+        if (searchView != null) {
+            searchView.setOnQueryTextListener(MainActivity.this);
+        }
         return true;
     }
 
@@ -153,5 +154,15 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        return false;
     }
 }
