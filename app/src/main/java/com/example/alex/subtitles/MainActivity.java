@@ -21,7 +21,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, SearchView.OnQueryTextListener {
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     public ArrayList arrayList;
     ResultItem[] resultItemArray;
@@ -141,14 +141,4 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    @Override
-    public boolean onQueryTextSubmit(String query) {
-        startActivity(new Intent(MainActivity.this , ResultsActivity.class));
-        return false;
-    }
-
-    @Override
-    public boolean onQueryTextChange(String newText) {
-        return false;
-    }
 }
