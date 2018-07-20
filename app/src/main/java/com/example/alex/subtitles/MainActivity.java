@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -82,7 +83,7 @@ public class MainActivity extends AppCompatActivity
                 Intent intent = new Intent(MainActivity.this , ResultsActivity.class);
                 intent.putExtra("QUERY" , query);
                 startActivity(intent);
-                return false;
+                return true;
             }
 
             @Override
@@ -95,8 +96,9 @@ public class MainActivity extends AppCompatActivity
         settingsItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
-
-                return false;
+                Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+                startActivity(intent);
+                return true;
             }
         });
 

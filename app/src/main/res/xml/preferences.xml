@@ -8,7 +8,6 @@
                 android:key="pref_key_language"
                 android:title="Language"
                 android:summary="Press to select languages"
-                android:defaultValue="English"
                 android:entries="@array/languageList"
                 android:entryValues="@array/languageListValues"
                 />

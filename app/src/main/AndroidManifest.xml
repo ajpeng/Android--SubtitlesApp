@@ -3,7 +3,7 @@
     package="com.example.alex.subtitles">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -22,7 +22,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ResultsActivity"></activity>
+        <activity android:name=".ResultsActivity" />
+        <activity android:name=".SettingsActivity" />
+        <activity
+            android:name=".SettingsActivity2"
+            android:label="@string/title_activity_settings2"></activity>
     </application>
 
 </manifest>
