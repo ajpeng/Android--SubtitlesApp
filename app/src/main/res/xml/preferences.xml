@@ -11,6 +11,7 @@
                 android:entries="@array/languageList"
                 android:entryValues="@array/languageListValues"
                 />
+            <!--TODO add default values-->
 
             <CheckBoxPreference
                 android:key="pref_key_mov"
@@ -19,10 +20,18 @@
                 android:defaultValue="true" />
 
             <CheckBoxPreference
-                android:key="pref_key_mov"
+                android:key="pref_key_tv"
                 android:title="Show tv shows"
                 android:summary="Show tv series in search results"
                 android:defaultValue="true" />
+
+            <Preference
+                android:key="pref_key_download_location"
+                android:title="Subtitles download folder"
+                android:summary="/storage/emulated/0/Subtitles"
+                android:defaultValue="/storage/emulated/0/Subtitles"
+                >
+            </Preference>
         </PreferenceCategory>
 
 </PreferenceScreen>
