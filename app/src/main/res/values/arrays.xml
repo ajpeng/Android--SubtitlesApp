@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="languageList">
+        <item>Arabic</item>
+        <item>Chinese</item>
+        <item>English</item>
+        <item>French</item>
+        <item>Hindi</item>
+        <item>Japanese</item>
+        <item>Korean</item>
+        <item>Russian</item>
+        <item>Spanish</item>
+    </string-array>
+
+    <string-array name="languageListValues">
+        <item>ara</item>
+        <item>chi</item>
+        <item>eng</item>
+        <item>fre</item>
+        <item>hin</item>
+        <item>jpn</item>
+        <item>kor</item>
+        <item>rus</item>
+        <item>spa</item>
+    </string-array>
+</resources>

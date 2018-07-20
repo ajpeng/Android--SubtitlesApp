@@ -2,6 +2,8 @@ package com.example.alex.subtitles;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceFragment;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -88,10 +90,22 @@ public class MainActivity extends AppCompatActivity
                 return false;
             }
         });
-//        if (searchView != null) {
-//            searchView.setOnQueryTextListener(MainActivity.this);
-//        }
+
+        MenuItem settingsItem = menu.findItem(R.id.action_settings);
+        settingsItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+
+                return false;
+            }
+        });
+
         return super.onCreateOptionsMenu(menu);
+    }
+
+
+    public void setupPreferences(){
+
     }
 
     @Override

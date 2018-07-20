@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+        <PreferenceCategory
+            android:key="general_category"
+            android:title="General">
+
+            <MultiSelectListPreference
+                android:key="pref_key_language"
+                android:title="Language"
+                android:summary="Press to select languages"
+                android:defaultValue="English"
+                android:entries="@array/languageList"
+                android:entryValues="@array/languageListValues"
+                />
+
+            <CheckBoxPreference
+                android:key="pref_key_mov"
+                android:title="Show movies"
+                android:summary="Show movies in search results"
+                android:defaultValue="true" />
+
+            <CheckBoxPreference
+                android:key="pref_key_mov"
+                android:title="Show tv shows"
+                android:summary="Show tv series in search results"
+                android:defaultValue="true" />
+        </PreferenceCategory>
+
+</PreferenceScreen>
