@@ -1,12 +1,16 @@
 package com.example.alex.subtitles;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -31,7 +35,41 @@ public class MainActivity extends AppCompatActivity
     ArrayList<ResultItem> resultItemList2;
     ListView resultListView2;
 
+
     private static final String TAG = "MainActivity";
+    private static final String[] STORAGE_PERMISSIONS ={
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+
+    };
+
+    private static final String[] INTERNET_PERMISSIONS = {
+            Manifest.permission.INTERNET
+    };
+
+
+    private void VerifyPermissions(){
+        int permissionWrite = ActivityCompat.checkSelfPermission(MainActivity.this , Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        int permissionRead = ActivityCompat.checkSelfPermission(MainActivity.this , Manifest.permission.READ_EXTERNAL_STORAGE);
+        int permissionInternet = ActivityCompat.checkSelfPermission(MainActivity.this , Manifest.permission.INTERNET);
+
+        if(permissionWrite != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(
+                    MainActivity.this,
+                    STORAGE_PERMISSIONS,
+                    1
+            );
+        }
+
+        if(permissionInternet != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(
+                    MainActivity.this,
+                    INTERNET_PERMISSIONS,
+                    1
+            );
+        }
+    }
+
     TextView query;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
