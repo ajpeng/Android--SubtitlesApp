@@ -7,6 +7,9 @@ public class ResultItem implements Serializable{
     String IDMovieImdb;
     String SubHash;
     String MovieName;
+    String SubDownloadLink;
+    String ZipDownloadLink;
+    String SubtitlesLink;
 
     public String getMovieName() {
         return MovieName;
@@ -16,11 +19,26 @@ public class ResultItem implements Serializable{
         return SubHash;
     }
 
-    public ResultItem(String SubFileName, String IDMovieImdb, String SubHash, String MovieName){
+    public ResultItem(String SubFileName, String IDMovieImdb, String SubHash, String MovieName, String SubDownloadLink , String ZipDownloadLink , String SubtitlesLink){
         this.SubFileName = SubFileName;
         this.MovieName = MovieName;
         this.IDMovieImdb = IDMovieImdb;
         this.SubHash = SubHash;
+        this.SubDownloadLink = SubDownloadLink;
+        this.ZipDownloadLink = ZipDownloadLink;
+        this.SubtitlesLink = SubtitlesLink;
+    }
+
+    public String getSubDownloadLink() {
+        return SubDownloadLink;
+    }
+
+    public String getZipDownloadLink() {
+        return ZipDownloadLink;
+    }
+
+    public String getSubtitlesLink() {
+        return SubtitlesLink;
     }
 
     public String getIDMovieImdb() {

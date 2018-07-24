@@ -10,7 +10,9 @@
                 android:summary="Press to select languages"
                 android:entries="@array/languageList"
                 android:entryValues="@array/languageListValues"
+                android:defaultValue="@array/empty_array"
                 />
+            <!--//android:defaultValue="@array/languageListValues"-->
             <!--TODO add default values-->
 
             <CheckBoxPreference

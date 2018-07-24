@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity
     private static final String[] STORAGE_PERMISSIONS ={
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.READ_EXTERNAL_STORAGE,
-
     };
 
     private static final String[] INTERNET_PERMISSIONS = {
