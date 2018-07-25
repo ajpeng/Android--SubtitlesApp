@@ -39,7 +39,7 @@ public class ResultListAdapter extends ArrayAdapter<ResultItem> {
     Context mCtx;
     int resource;
     List<ResultItem> resultItemList;
-    private static final String TAG = "ResultListAdapter :: ";
+    private static final String TAG = "ResultListAdapter ::     ";
     private ProgressDialog pDialog;
     public static final int progress_bar_type = 0;
     ResultItem resultItem;
@@ -70,14 +70,10 @@ public class ResultListAdapter extends ArrayAdapter<ResultItem> {
             public void onClick(View view) {
                 Log.d(TAG , "DownloadOnClick");
                 alertBuilder();
-
             }
         });
         return view;
     }
-
-
-
 
     public void alertBuilder(){
         AlertDialog.Builder builder;
@@ -93,10 +89,11 @@ public class ResultListAdapter extends ArrayAdapter<ResultItem> {
                         switch (which){
                             case 0:
                                 //View IMDB info
+                                //TODO add webview
                             case 1:
-                                new DownloadFileFromURL().execute(resultItem.getSubDownloadLink());
+                                new DownloadFileFromURL().execute(resultItem.getSubDownloadLink(), resultItem.getSubFileName());
                             case 2:
-                                new DownloadFileFromURL().execute(resultItem.getZipDownloadLink());
+                                new DownloadFileFromURL().execute(resultItem.getZipDownloadLink(), resultItem.getSubFileName());
 
                         }
                         // of the selected item
@@ -126,6 +123,7 @@ public class ResultListAdapter extends ArrayAdapter<ResultItem> {
             int count;
             try {
                 URL url = new URL(f_url[0]);
+                String filename = f_url[1];
                 URLConnection conection = url.openConnection();
                 conection.connect();
 
@@ -139,7 +137,7 @@ public class ResultListAdapter extends ArrayAdapter<ResultItem> {
 
                 // Output stream
                 OutputStream output = new FileOutputStream(Environment
-                        .getExternalStorageDirectory().toString()
+                        .getExternalStorageDirectory().toString() + filename
                         );
 
                 byte data[] = new byte[1024];
