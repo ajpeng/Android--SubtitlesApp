@@ -14,6 +14,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -75,7 +77,23 @@ public class ResultListAdapter extends ArrayAdapter<ResultItem> {
         return view;
     }
 
+
     public void alertBuilder(){
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+        alert.setTitle("IMDB Info");
+
+        WebView wv = new WebView(getContext());
+        wv.loadUrl("https:\\www.imdb.com/title/tt" + resultItem.getIDMovieImdb() +"/");
+        wv.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                view.loadUrl(url);
+                return true;
+            }
+        });
+        alert.setView(wv);
+
         AlertDialog.Builder builder;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             builder = new AlertDialog.Builder(mCtx, android.R.style.Theme_Material_Light_Dialog);
@@ -83,13 +101,15 @@ public class ResultListAdapter extends ArrayAdapter<ResultItem> {
             builder = new AlertDialog.Builder(mCtx);
         }
         builder.setTitle("Download file")
-                .setIcon(android.R.drawable.stat_sys_download)
+                .setIcon(android.R.drawable.stat_sys_download_done)
                 .setItems(R.array.resultDialogOptions, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
+                        Log.d(TAG, Integer.toString(which));
                         switch (which){
                             case 0:
                                 //View IMDB info
                                 //TODO add webview
+                                alert.show();
                             case 1:
                                 new DownloadFileFromURL().execute(resultItem.getSubDownloadLink(), resultItem.getSubFileName());
                             case 2:
