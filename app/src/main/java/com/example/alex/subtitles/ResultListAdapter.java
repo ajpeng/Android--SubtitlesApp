@@ -39,7 +39,7 @@ public class ResultListAdapter extends ArrayAdapter<ResultItem> {
     Context mCtx;
     int resource;
     List<ResultItem> resultItemList;
-    private static final String TAG = "ResultListAdapter ::     ";
+    private static final String TAG = "ResultListAdapter ::";
     private ProgressDialog pDialog;
     public static final int progress_bar_type = 0;
     ResultItem resultItem;
@@ -181,6 +181,8 @@ public class ResultListAdapter extends ArrayAdapter<ResultItem> {
          * **/
         @Override
         protected void onPostExecute(String file_url) {
+            //TODO fix null
+            Toast.makeText(getContext(), file_url +" download completed", Toast.LENGTH_SHORT).show();
             // dismiss the dialog after the file was downloaded
          //   dismissDialog(progress_bar_type);
         }
