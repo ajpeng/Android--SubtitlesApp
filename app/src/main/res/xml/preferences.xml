@@ -1,39 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-        <PreferenceCategory
-            android:key="general_category"
-            android:title="General">
 
-            <MultiSelectListPreference
+        <android.support.v7.preference.PreferenceCategory
+            android:key="general_category"
+            android:title="General"
+            android:theme="@style/PreferenceFixTheme.Light">
+
+            <android.support.v7.preference.MultiSelectListPreference
                 android:key="pref_key_language"
                 android:title="Language"
-                android:summary="Press to select languages"
+                android:summary="Select languages to search"
                 android:entries="@array/languageList"
-                android:entryValues="@array/languageListValues"
-                android:defaultValue="@array/empty_array"
-                />
-            <!--//android:defaultValue="@array/languageListValues"-->
-            <!--TODO add default values-->
+                android:entryValues="@array/languageListValues"/>
+                <!--android:defaultValue="eng"-->
 
-            <CheckBoxPreference
+            <!--//android:defaultValue="@array/languageListValues"-->
+
+            <android.support.v7.preference.CheckBoxPreference
                 android:key="pref_key_mov"
                 android:title="Show movies"
                 android:summary="Show movies in search results"
                 android:defaultValue="true" />
 
-            <CheckBoxPreference
+            <android.support.v7.preference.CheckBoxPreference
                 android:key="pref_key_tv"
                 android:title="Show tv shows"
                 android:summary="Show tv series in search results"
                 android:defaultValue="true" />
 
-            <Preference
+            <android.support.v7.preference.Preference
                 android:key="pref_key_download_location"
                 android:title="Subtitles download folder"
                 android:summary="/storage/emulated/0/Subtitles"
                 android:defaultValue="/storage/emulated/0/Subtitles"
                 >
-            </Preference>
-        </PreferenceCategory>
+            </android.support.v7.preference.Preference>
+        </android.support.v7.preference.PreferenceCategory>
 
 </PreferenceScreen>

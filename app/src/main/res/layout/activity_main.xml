@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:theme="@style/PreferenceFixTheme.Light"
     tools:openDrawer="start">
 
     <include
@@ -14,6 +15,7 @@
         android:layout_height="match_parent" />
 
     <android.support.design.widget.NavigationView
+        android:theme="@style/PreferenceFixTheme.Light"
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"

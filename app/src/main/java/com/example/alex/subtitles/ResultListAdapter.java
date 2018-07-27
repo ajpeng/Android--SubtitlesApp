@@ -93,6 +93,12 @@ public class ResultListAdapter extends ArrayAdapter<ResultItem> {
             }
         });
         alert.setView(wv);
+        alert.setPositiveButton("Close", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
 
         AlertDialog.Builder builder;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -112,8 +118,12 @@ public class ResultListAdapter extends ArrayAdapter<ResultItem> {
                                 alert.show();
                             case 1:
                                 new DownloadFileFromURL().execute(resultItem.getSubDownloadLink(), resultItem.getSubFileName());
+                                //TODO fix null
+                                Toast.makeText(getContext(), resultItem.getSubFileName() +" download completed", Toast.LENGTH_SHORT).show();
                             case 2:
                                 new DownloadFileFromURL().execute(resultItem.getZipDownloadLink(), resultItem.getSubFileName());
+                                //TODO fix null
+                                Toast.makeText(getContext(), resultItem.getSubFileName() +" download completed", Toast.LENGTH_SHORT).show();
 
                         }
                         // of the selected item
@@ -201,8 +211,7 @@ public class ResultListAdapter extends ArrayAdapter<ResultItem> {
          * **/
         @Override
         protected void onPostExecute(String file_url) {
-            //TODO fix null
-            Toast.makeText(getContext(), file_url +" download completed", Toast.LENGTH_SHORT).show();
+
             // dismiss the dialog after the file was downloaded
          //   dismissDialog(progress_bar_type);
         }
