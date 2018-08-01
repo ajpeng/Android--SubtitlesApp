@@ -80,7 +80,7 @@ public class ResultsActivity extends AppCompatActivity {
 
     public Map<String, String> getHeaders() throws AuthFailureError {
         HashMap<String, String> headers = new HashMap<String, String>();
-        headers.put("User-agent", "UntitledSubtitles");
+        headers.put("User-agent", BuildConfig.ApiKey);
         headers.put("Content-Type", "application/json; charset=utf-8");
         headers.put("Accept-Language", "en");
         return headers;

@@ -1,40 +1,28 @@
-<?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<android.support.v7.preference.PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-        <android.support.v7.preference.PreferenceCategory
-            android:key="general_category"
-            android:title="General"
-            android:theme="@style/PreferenceFixTheme.Light">
+    <android.support.v7.preference.PreferenceCategory
+        android:title="Category 1">
 
-            <android.support.v7.preference.MultiSelectListPreference
-                android:key="pref_key_language"
-                android:title="Language"
-                android:summary="Select languages to search"
-                android:entries="@array/languageList"
-                android:entryValues="@array/languageListValues"/>
-                <!--android:defaultValue="eng"-->
+        <android.support.v7.preference.SwitchPreferenceCompat
+            android:key="key1"
+            android:title="Switch Preference"
+            android:summary="Switch Summary"
+            android:defaultValue="true" />
 
-            <!--//android:defaultValue="@array/languageListValues"-->
+        <android.support.v7.preference.EditTextPreference
+            android:key="key2"
+            android:title="EditText Preference"
+            android:summary="EditText Summary"
+            android:dialogMessage="Dialog Message"
+            android:defaultValue="Default value" />
 
-            <android.support.v7.preference.CheckBoxPreference
-                android:key="pref_key_mov"
-                android:title="Show movies"
-                android:summary="Show movies in search results"
-                android:defaultValue="true" />
+        <android.support.v7.preference.CheckBoxPreference
+            android:key="key3"
+            android:title="CheckBox Preference"
+            android:summary="CheckBox Summary"
+            android:defaultValue="true"/>
 
-            <android.support.v7.preference.CheckBoxPreference
-                android:key="pref_key_tv"
-                android:title="Show tv shows"
-                android:summary="Show tv series in search results"
-                android:defaultValue="true" />
+    </android.support.v7.preference.PreferenceCategory>
 
-            <android.support.v7.preference.Preference
-                android:key="pref_key_download_location"
-                android:title="Subtitles download folder"
-                android:summary="/storage/emulated/0/Subtitles"
-                android:defaultValue="/storage/emulated/0/Subtitles"
-                >
-            </android.support.v7.preference.Preference>
-        </android.support.v7.preference.PreferenceCategory>
-
-</PreferenceScreen>
+</android.support.v7.preference.PreferenceScreen>
