@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity
     ResultItem[] resultItemArray;
     ArrayList<ResultItem> resultItemList2;
     ListView resultListView2;
+    NavigationView navigationView;
 
 
     private static final String TAG = "MainActivity";
@@ -53,6 +54,14 @@ public class MainActivity extends AppCompatActivity
         int permissionInternet = ActivityCompat.checkSelfPermission(MainActivity.this , Manifest.permission.INTERNET);
 
         if(permissionWrite != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(
+                    MainActivity.this,
+                    STORAGE_PERMISSIONS,
+                    1
+            );
+        }
+
+        if(permissionRead != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(
                     MainActivity.this,
                     STORAGE_PERMISSIONS,
@@ -92,7 +101,7 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
 
@@ -168,7 +177,9 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            // Handle the camera action
+            Intent intent = new Intent(MainActivity.this, CustomContentActivity.class);
+            intent.setFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+            startActivity(intent);
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
@@ -180,7 +191,6 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_send) {
 
         }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

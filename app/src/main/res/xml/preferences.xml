@@ -4,14 +4,15 @@
         <android.support.v7.preference.PreferenceCategory
             android:key="general_category"
             android:title="General"
-            android:theme="@style/PreferenceFixTheme.Light">
+            >
 
             <android.support.v7.preference.MultiSelectListPreference
                 android:key="pref_key_language"
                 android:title="Language"
                 android:summary="Select languages to search"
                 android:entries="@array/languageList"
-                android:entryValues="@array/languageListValues"/>
+                android:entryValues="@array/languageListValues"
+                />
                 <!--android:defaultValue="eng"-->
 
             <!--//android:defaultValue="@array/languageListValues"-->
@@ -20,12 +21,14 @@
                 android:key="pref_key_mov"
                 android:title="Show movies"
                 android:summary="Show movies in search results"
+                android:theme="@style/PreferenceFixTheme.Light"
                 android:defaultValue="true" />
 
             <android.support.v7.preference.CheckBoxPreference
                 android:key="pref_key_tv"
                 android:title="Show tv shows"
                 android:summary="Show tv series in search results"
+                android:theme="@style/PreferenceFixTheme.Light"
                 android:defaultValue="true" />
 
             <android.support.v7.preference.Preference
@@ -33,6 +36,7 @@
                 android:title="Subtitles download folder"
                 android:summary="/storage/emulated/0/Subtitles"
                 android:defaultValue="/storage/emulated/0/Subtitles"
+                android:theme="@style/PreferenceFixTheme.Light"
                 >
             </android.support.v7.preference.Preference>
         </android.support.v7.preference.PreferenceCategory>

@@ -17,22 +17,6 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
 
     SharedPreferences sharedPreferences;
 
-//    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-//        addPreferencesFromResource(R.xml.preferences);
-//        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-//        PreferenceScreen preferenceScreen = getPreferenceScreen();
-//        onSharedPreferenceChanged(sharedPreferences, getString(R.array.pr));
-
-//        int count = preferenceScreen.getPreferenceCount();
-//        for (int i = 0; i < count ; i++) {
-//            Preference p = preferenceScreen.getPreference(i);
-//            if (!(p instanceof CheckBoxPreference)) {
-//                String value = sharedPreferences.getString(p.getKey(), "");
-//                setPreferenceSummary(p, value);
-//            }
-//        }
-//    }
-
     @Override
     public void onCreatePreferencesFix(@Nullable Bundle savedInstanceState, String rootKey) {
         addPreferencesFromResource(R.xml.preferences);

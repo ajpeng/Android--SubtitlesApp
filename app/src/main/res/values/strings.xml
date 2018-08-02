@@ -57,6 +57,8 @@
         <item>1</item>
         <item>2</item>
         <item>3</item>
+
+
     </string-array>
 
     <string-array name="multi_select_list_preference_default_value" />
@@ -73,4 +75,11 @@
 
     <string name="pref_title_vibrate">Vibrate</string>
     <string-array name="empty_array"/>
+
+
+    <string name="action_add_favourite">Add to Favourites</string>
+    <string name="action_play_next">Play Next</string>
+    <string name="backdrop_title">LOVE MUSIC</string>
+    <string name="backdrop_subtitle">This season top 20 albums</string>
+
 </resources>
