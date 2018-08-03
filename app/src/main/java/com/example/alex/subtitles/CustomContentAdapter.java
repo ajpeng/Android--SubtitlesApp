@@ -18,6 +18,7 @@ import android.widget.TextView;
 public class CustomContentAdapter extends RecyclerView.Adapter<CustomContentAdapter.ViewHolder> {
     private Context mContext;
     private String[] mDataset;
+    private Drawable[] mThumbnails;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -36,9 +37,10 @@ public class CustomContentAdapter extends RecyclerView.Adapter<CustomContentAdap
 
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public CustomContentAdapter(Context myContext , String[] myDataset) {
+    public CustomContentAdapter(Context myContext , String[] myDataset , Drawable[] myThumbnails) {
         mContext = myContext;
         mDataset = myDataset;
+        mThumbnails = myThumbnails;
     }
 
     // Create new views (invoked by the layout manager)
@@ -59,10 +61,12 @@ public class CustomContentAdapter extends RecyclerView.Adapter<CustomContentAdap
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         holder.title.setText(mDataset[position]);
-        Bitmap bitmapThumnail = getThumnail(mDataset[position]);
+
         holder.thumbnail.setAdjustViewBounds(true);
-        Drawable thumbnail = new BitmapDrawable(mContext.getResources(), bitmapThumnail );
-        holder.thumbnail.setImageDrawable(thumbnail);
+        //Bitmap bitmapThumnail = getThumnail(mDataset[position]);
+        //Drawable thumbnail = new BitmapDrawable(mContext.getResources(), bitmapThumnail );
+        //Drawable thumbnail = new BitmapDrawable(mContext.getResources(), bitmapThumnail );
+        holder.thumbnail.setImageDrawable(mThumbnails[position]);
     }
 
     public Bitmap getThumnail(String path){

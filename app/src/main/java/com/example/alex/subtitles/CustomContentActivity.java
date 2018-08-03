@@ -2,6 +2,10 @@ package com.example.alex.subtitles;
 
 import android.app.Activity;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.media.ThumbnailUtils;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
@@ -12,7 +16,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 
-//TODO FIX SLOW SCROLLING AND CRASH ON SCROLL
+//TODO FIX SLOW THUMBNAIL Generation when scrolling
 
 public class CustomContentActivity extends Activity {
     private RecyclerView mRecyclerView;
@@ -33,7 +37,14 @@ public class CustomContentActivity extends Activity {
         String[] mDataset = new String[getAllMedia().size()];
         mDataset = getAllMedia().toArray(mDataset);
 
-        mAdapter = new CustomContentAdapter(this , mDataset);
+        Drawable[] thumbnails = new Drawable[getAllMedia().size()];
+        for(int i=0; i< mDataset.length ; i++){
+            Bitmap bitmapThumnail = ThumbnailUtils.createVideoThumbnail(mDataset[i], MediaStore.Video.Thumbnails.MINI_KIND);
+            Drawable thumbnail = new BitmapDrawable(this.getResources(), bitmapThumnail );
+            thumbnails[i] = thumbnail;
+        }
+
+        mAdapter = new CustomContentAdapter(this , mDataset , thumbnails);
         mRecyclerView.setAdapter(mAdapter);
 
     }
