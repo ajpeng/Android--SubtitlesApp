@@ -11,6 +11,9 @@ import android.support.v7.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+
+//TODO FIX SLOW SCROLLING AND CRASH ON SCROLL
+
 public class CustomContentActivity extends Activity {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;

@@ -1,6 +1,13 @@
 package com.example.alex.subtitles;
 
 import android.content.Context;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.media.ThumbnailUtils;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,14 +31,15 @@ public class CustomContentAdapter extends RecyclerView.Adapter<CustomContentAdap
             title = (TextView) v.findViewById(R.id.card_title);
             thumbnail = (ImageView) v.findViewById(R.id.card_thumbnail);
         }
+
     }
+
 
     // Provide a suitable constructor (depends on the kind of dataset)
     public CustomContentAdapter(Context myContext , String[] myDataset) {
         mContext = myContext;
         mDataset = myDataset;
     }
-
 
     // Create new views (invoked by the layout manager)
     @Override
@@ -51,7 +59,14 @@ public class CustomContentAdapter extends RecyclerView.Adapter<CustomContentAdap
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         holder.title.setText(mDataset[position]);
-//        holder.thumbnail.setImageDrawable(R.drawable.);
+        Bitmap bitmapThumnail = getThumnail(mDataset[position]);
+        holder.thumbnail.setAdjustViewBounds(true);
+        Drawable thumbnail = new BitmapDrawable(mContext.getResources(), bitmapThumnail );
+        holder.thumbnail.setImageDrawable(thumbnail);
+    }
+
+    public Bitmap getThumnail(String path){
+        return ThumbnailUtils.createVideoThumbnail(path, MediaStore.Video.Thumbnails.MINI_KIND);
     }
 
     // Return the size of your dataset (invoked by the layout manager)
