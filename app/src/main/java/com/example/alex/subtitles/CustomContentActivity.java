@@ -1,6 +1,7 @@
 package com.example.alex.subtitles;
 
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -16,7 +17,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 
-//TODO FIX SLOW THUMBNAIL Generation when scrolling
 
 public class CustomContentActivity extends Activity {
     private RecyclerView mRecyclerView;
@@ -38,8 +38,11 @@ public class CustomContentActivity extends Activity {
         mDataset = getAllMedia().toArray(mDataset);
 
         Drawable[] thumbnails = new Drawable[getAllMedia().size()];
+        //ContentResolver crThumb = getContentResolver();
+        // TODO create caching for the thumbnails
         for(int i=0; i< mDataset.length ; i++){
             Bitmap bitmapThumnail = ThumbnailUtils.createVideoThumbnail(mDataset[i], MediaStore.Video.Thumbnails.MINI_KIND);
+            //Bitmap bitmapThumnail = MediaStore.Video.Thumbnails.getThumbnail(crThumb , )
             Drawable thumbnail = new BitmapDrawable(this.getResources(), bitmapThumnail );
             thumbnails[i] = thumbnail;
         }
